@@ -13,9 +13,10 @@
     "vue"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "i18n-ally.localesPaths": [
-    "src/i18n"
-  ],
+  "i18n-ally.localesPaths": "locales",
+  "i18n-ally.sourceLanguage": "en",
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.sortKeys": true,
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   }

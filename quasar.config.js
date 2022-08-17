@@ -13,8 +13,13 @@
 
 const { configure } = require('quasar/wrappers');
 const path = require('path');
+const i18n = require('@intlify/vite-plugin-vue-i18n');
+const autoImport = require('unplugin-auto-import/vite');
+const components = require('unplugin-vue-components/vite');
 
-module.exports = configure((/* ctx */) => ({
+const autoImportPath = path.resolve(__dirname, 'configs/');
+
+module.exports = configure(({ ctx }) => ({
   eslint: {
     // fix: true,
     // include = [],
@@ -80,13 +85,47 @@ module.exports = configure((/* ctx */) => ({
     // extendViteConf (viteConf) {},
     // viteVuePluginOptions: {},
 
+    viteVuePluginOptions: {
+      include: [/\.vue$/],
+      reactivityTransform: true,
+    },
+
     vitePlugins: [
-      ['@intlify/vite-plugin-vue-i18n', {
+      [i18n, {
         // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
         // compositionOnly: false,
 
         // you need to set i18n resource including paths !
-        include: path.resolve(__dirname, './src/i18n/**'),
+        runtimeOnly: true,
+        compositionOnly: true,
+        include: [path.resolve(__dirname, 'locales/**')],
+      }],
+      [autoImport, {
+        imports: [
+          'vue',
+          'vue-router',
+          'vue-i18n',
+          'vue/macros',
+          '@vueuse/head',
+          '@vueuse/core',
+        ],
+        eslintrc: {
+          enabled: true,
+          filepath: path.resolve(autoImportPath, '.eslintrc-auto-import.json'),
+        },
+        dirs: [
+          'src/store',
+          'src/modules/**/store',
+        ],
+        vueTemplate: true,
+        dts: path.resolve(autoImportPath, 'auto-imports.d.ts'),
+      }],
+      [components, {
+        extensions: ['vue'],
+        // allow auto import and register components used in markdown
+        include: [/\.vue$/, /\.vue\?vue/],
+        dirs: ['src/modules/widgets', 'src/layouts/**/'],
+        dts: path.resolve(autoImportPath, 'components.d.ts'),
       }],
     ],
   },

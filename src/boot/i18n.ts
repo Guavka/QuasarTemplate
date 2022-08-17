@@ -1,12 +1,20 @@
 import { boot } from 'quasar/wrappers';
 import { createI18n } from 'vue-i18n';
 
-import messages from 'src/i18n';
+const messages = Object.fromEntries(
+  Object.entries(
+    import.meta.glob<{ default: any }>('../../locales/*.y(a)?ml', { eager: true }),
+  )
+    .map(([key, value]) => {
+      const yaml = key.endsWith('.yaml');
+      return [key.slice(14, yaml ? -5 : -4), value.default];
+    }),
+);
 
 export default boot(({ app }) => {
   const i18n = createI18n({
-    locale: 'en-US',
-    globalInjection: true,
+    legacy: false,
+    locale: 'en',
     messages,
   });
 
