@@ -1,6 +1,18 @@
 {
   "extends": "@quasar/app-vite/tsconfig-preset",
   "compilerOptions": {
-    "baseUrl": "."
-  }
+    "baseUrl": ".",
+    "lib": [
+      "WebWorker",
+      "DOM.Iterable"
+    ],
+    "types": [
+      "vitest",
+      "vite/client",
+      "vue/ref-macros",
+    ],
+  },
+  "exclude": [
+    "cypress"
+  ]
 }
