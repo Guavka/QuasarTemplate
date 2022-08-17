@@ -105,7 +105,6 @@ module.exports = configure(({ ctx }) => ({
           'vue',
           'vue-router',
           'vue-i18n',
-          'vue/macros',
           '@vueuse/head',
           '@vueuse/core',
         ],

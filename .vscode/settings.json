@@ -19,5 +19,6 @@
   "i18n-ally.sortKeys": true,
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
-  }
+  },
+  "testing.automaticallyOpenPeekView": "never"
 }
