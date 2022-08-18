@@ -3,7 +3,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "lib": [
-      "WebWorker",
       "DOM.Iterable"
     ],
     "types": [
