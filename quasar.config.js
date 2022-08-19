@@ -30,7 +30,7 @@ module.exports = configure(({ ctx }) => ({
   },
 
   // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
-  // preFetch: true,
+  preFetch: true,
 
   // app boot file (/src/boot)
   // --> boot files are part of "main.js"
@@ -61,6 +61,9 @@ module.exports = configure(({ ctx }) => ({
 
   // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
   build: {
+    alias: {
+      modules: path.join(__dirname, './src/modules'),
+    },
     target: {
       browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
       node: 'node16',
@@ -88,6 +91,13 @@ module.exports = configure(({ ctx }) => ({
     viteVuePluginOptions: {
       include: [/\.vue$/],
       reactivityTransform: true,
+      test: {
+        include: ['test/**/*.test.ts'],
+        environment: 'happy-dom',
+        deps: {
+          inline: ['@vue'],
+        },
+      },
     },
 
     vitePlugins: [
@@ -105,8 +115,7 @@ module.exports = configure(({ ctx }) => ({
           'vue',
           'vue-router',
           'vue-i18n',
-          '@vueuse/head',
-          '@vueuse/core',
+          'quasar',
         ],
         eslintrc: {
           enabled: true,
@@ -123,7 +132,7 @@ module.exports = configure(({ ctx }) => ({
         extensions: ['vue'],
         // allow auto import and register components used in markdown
         include: [/\.vue$/, /\.vue\?vue/],
-        dirs: ['src/modules/widgets', 'src/layouts/**/'],
+        dirs: ['src/modules/widgets/**/*'],
         dts: path.resolve(autoImportPath, 'components.d.ts'),
       }],
     ],
@@ -137,7 +146,10 @@ module.exports = configure(({ ctx }) => ({
 
   // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
   framework: {
-    config: {},
+    config: {
+      loading: { /* look at QuasarConfOptions from the API card */ },
+      notify: { /* look at QuasarConfOptions from the API card */ },
+    },
 
     // iconSet: 'material-icons', // Quasar icon set
     // lang: 'en-US', // Quasar language pack
@@ -150,7 +162,14 @@ module.exports = configure(({ ctx }) => ({
     // directives: [],
 
     // Quasar plugins
-    plugins: [],
+    plugins: [
+      'AddressbarColor',
+      'Cookies',
+      'Dialog',
+      'Loading',
+      'Meta',
+      'Notify',
+    ],
   },
 
   // animations: 'all', // --- includes all animations
@@ -158,16 +177,16 @@ module.exports = configure(({ ctx }) => ({
   animations: [],
 
   // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#sourcefiles
-  // sourceFiles: {
+  sourceFiles: {
   //   rootComponent: 'src/App.vue',
   //   router: 'src/router/index',
-  //   store: 'src/store/index',
+    store: 'boot/pinia.ts',
   //   registerServiceWorker: 'src-pwa/register-service-worker',
   //   serviceWorker: 'src-pwa/custom-service-worker',
   //   pwaManifestFile: 'src-pwa/manifest.json',
   //   electronMain: 'src-electron/electron-main',
   //   electronPreload: 'src-electron/electron-preload'
-  // },
+  },
 
   // https://v2.quasar.dev/quasar-cli-vite/developing-ssr/configuring-ssr
   ssr: {

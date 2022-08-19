@@ -10,6 +10,11 @@
       "vite/client",
       "vue/ref-macros",
     ],
+    "paths": {
+      "modules/*": [
+        "src/modules/*"
+      ]
+    }
   },
   "exclude": [
     "cypress"
