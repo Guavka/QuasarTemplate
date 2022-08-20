@@ -1,16 +1,10 @@
 <template>
-  <q-btn color="bgColor" :icon="btnIcon">
-    <q-badge color="red" floating>4</q-badge>
-    <q-menu transition-show="rotate" transition-hide="rotate">
-      <q-list style="min-width: 100px">
-        <q-item clickable>
-          <q-item-section>Having fun</q-item-section>
-        </q-item>
-        <q-item clickable>
-          <q-item-section>Crazy for transitions</q-item-section>
-        </q-item>
-        <q-item clickable>
-          <q-item-section>Mind blown</q-item-section>
+  <q-btn :color="bgColor" :icon="btnIcon">
+    <q-badge :color="badgeColor" floating>{{menuItems.length}}</q-badge>
+    <q-menu :transition-show="transitionShow" :transition-hide="transitionHide">
+      <q-list style="`min-width: ${minWidth}`" >
+        <q-item v-for="item in menuItems" :key="item.label">
+          <q-item-section>{{item.label}}</q-item-section>
         </q-item>
       </q-list>
     </q-menu>
@@ -18,11 +12,17 @@
 </template>
 
 <script setup lang="ts">
+export type TransitionType ='flip-right'|'flip-left'|'scale'|'jump-down'|'jump-up'|'rotate'
+
 export interface GoPathBtnProps {
-  isSquare?: boolean,
+  menuItems:Record<string, string>[],
+
   bgColor?: string,
   btnIcon?: string,
-  pathTo?: string
+  badgeColor?:string
+  transitionShow?:TransitionType,
+  transitionHide?:TransitionType,
+  minWidth?:string,
 }
 
 withDefaults(
@@ -30,10 +30,18 @@ withDefaults(
   {
     bgColor: 'primary',
     btnIcon: 'notifications',
-    isSquare: true,
-    pathTo: '/',
+    badgeColor: 'red',
+    transitionShow: 'rotate',
+    transitionHide: 'rotate',
+    minWidth: '100px',
+    menuItems: () => [
+      { label: 'Having fun' },
+      { label: 'Crazy for transitions' },
+      { label: 'Mind blown' },
+    ],
   },
 );
+
 </script>
 
 <style scoped>

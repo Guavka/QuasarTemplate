@@ -8,7 +8,7 @@
         {{ $t('header.title') }}
       </q-toolbar-title>
 
-      <LocaleSwitcher />
+      <LocaleSwitcher :label="$t('header.localeSelect.title')" :locale-options="localeOptions"/>
       <GoPathBtn />
       <NotificationsMenu />
       <AccountMenu />
@@ -17,6 +17,7 @@
 </template>
 
 <script setup lang="ts">
+import { localeOptions } from 'boot/i18n';
 import { useDashboardLayoutStore } from '../store/dashboardStore';
 
 export interface CryptoDashboardHeaderProps {
