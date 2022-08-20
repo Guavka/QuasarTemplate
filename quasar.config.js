@@ -38,6 +38,7 @@ module.exports = configure(({ ctx }) => ({
   boot: [
     'i18n',
     'axios',
+    'pinia',
   ],
 
   // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
@@ -63,6 +64,7 @@ module.exports = configure(({ ctx }) => ({
   build: {
     alias: {
       modules: path.join(__dirname, './src/modules'),
+      boot: path.join(__dirname, './src/boot'),
     },
     target: {
       browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
@@ -116,6 +118,8 @@ module.exports = configure(({ ctx }) => ({
           'vue-router',
           'vue-i18n',
           'quasar',
+          'pinia',
+          'vue/macros',
         ],
         eslintrc: {
           enabled: true,
@@ -132,7 +136,8 @@ module.exports = configure(({ ctx }) => ({
         extensions: ['vue'],
         // allow auto import and register components used in markdown
         include: [/\.vue$/, /\.vue\?vue/],
-        dirs: ['src/modules/widgets/**/*'],
+        dirs: ['src/modules/widgets/', 'src/layouts/**/widgets/'],
+        deep: true,
         dts: path.resolve(autoImportPath, 'components.d.ts'),
       }],
     ],
@@ -141,7 +146,7 @@ module.exports = configure(({ ctx }) => ({
   // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
   devServer: {
     // https: true
-    open: true, // opens browser window automatically
+    open: false, // opens browser window automatically
   },
 
   // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
