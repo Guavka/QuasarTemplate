@@ -1,7 +1,14 @@
 <template>
-  <q-select v-model="locale" :options="localeOptions"
-  :label="label" dense borderless
-    emit-value map-options options-dense style="min-width: 120px" />
+  <q-select
+    v-model="locale"
+    :options="localeOptions"
+    :label="label"
+    dense
+    borderless
+    emit-value
+    map-options
+    options-dense
+    :style="minWidthComp" />
 </template>
 
 <script setup lang="ts">
@@ -12,10 +19,14 @@ export interface LocaleOptions {
 }
 export interface LocaleSwitcherProps {
   localeOptions: LocaleOptions[],
-  label?: string
+  label?: string,
+  minWidth?: string
 }
 
-withDefaults(defineProps<LocaleSwitcherProps>(), {
+const $q = useQuasar();
+
+const props = withDefaults(defineProps<LocaleSwitcherProps>(), {
+  minWidth: '120px',
   label: 'Select language',
   localeOptions: () => [
     { value: 'en', label: 'EN' },
@@ -24,6 +35,12 @@ withDefaults(defineProps<LocaleSwitcherProps>(), {
 });
 
 const { locale } = useI18n({ useScope: 'global' });
+const minWidthComp = computed(() => `min-width: ${props.minWidth}`);
+
+watch(locale, () => {
+  $q.cookies.set('locale', String(locale.value));
+});
+
 </script>
 
 <style scoped>

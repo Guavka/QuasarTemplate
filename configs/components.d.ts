@@ -10,8 +10,6 @@ declare module '@vue/runtime-core' {
     AccountMenu: typeof import('./../src/modules/widgets/AccountMenu.vue')['default']
     CryptoDashboardDrawer: typeof import('./../src/layouts/Dashboard/widgets/CryptoDashboardDrawer.vue')['default']
     CryptoDashboardHeader: typeof import('./../src/layouts/Dashboard/widgets/CryptoDashboardHeader.vue')['default']
-    EssentialLink: typeof import('./../src/modules/widgets/EssentialLink.vue')['default']
-    ExampleComponent: typeof import('./../src/modules/widgets/ExampleComponent.vue')['default']
     GoPathBtn: typeof import('./../src/modules/widgets/GoPathBtn.vue')['default']
     LocaleSwitcher: typeof import('./../src/modules/widgets/LocaleSwitcher.vue')['default']
     NotificationsMenu: typeof import('./../src/modules/widgets/NotificationsMenu.vue')['default']

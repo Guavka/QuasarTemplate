@@ -58,4 +58,11 @@ const metaData = {
 };
 
 useMeta(metaData);
+
+const $q = useQuasar();
+const cookieLocale = $q.cookies.get('locale');
+if (cookieLocale) {
+  const { locale } = useI18n({ useScope: 'global' });
+  locale.value = cookieLocale;
+}
 </script>
