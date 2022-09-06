@@ -8,6 +8,7 @@
         {{ $t('header.title') }}
       </q-toolbar-title>
 
+      <ThemeToggler/>
       <LocaleSwitcher :label="$t('header.localeSelect.title')" :locale-options="localeOptions"/>
       <GoPathBtn />
       <NotificationsMenu />

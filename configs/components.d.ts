@@ -17,5 +17,6 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     Starport: typeof import('vue-starport')['Starport']
     StarportCarrier: typeof import('vue-starport')['StarportCarrier']
+    ThemeToggler: typeof import('./../src/modules/widgets/ThemeToggler.vue')['default']
   }
 }

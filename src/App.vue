@@ -60,9 +60,21 @@ const metaData = {
 useMeta(metaData);
 
 const $q = useQuasar();
+const { locale } = useI18n({ useScope: 'global' });
+
 const cookieLocale = $q.cookies.get('locale');
 if (cookieLocale) {
-  const { locale } = useI18n({ useScope: 'global' });
   locale.value = cookieLocale;
+} else {
+  $q.cookies.set('locale', String(locale.value));
 }
+
+$q.dark.set(false);
+const cookieTheme = $q.cookies.get('isDark');
+if (cookieTheme) {
+  $q.dark.set(cookieTheme === 'true');
+} else {
+  $q.cookies.set('isDark', String($q.dark.isActive));
+}
+
 </script>
